@@ -1,6 +1,5 @@
 import Vue from "vue";
 import { PlayerInfo } from "./PlayerInfo";
-import { OverviewSettings } from "./OverviewSettings";
 import { OtherPlayer } from "../OtherPlayer";
 import { PlayerModel } from "../../models/PlayerModel";
 import { ActionLabel } from "./ActionLabel";
@@ -22,7 +21,6 @@ export const PlayersOverview = Vue.component("players-overview", {
     props: ["player"],
     components: {
         "player-info": PlayerInfo,
-        "overview-settings": OverviewSettings,
         "other-player": OtherPlayer,
     },
     data: function () {
@@ -66,7 +64,6 @@ export const PlayersOverview = Vue.component("players-overview", {
     },
     template: `
         <div class="players-overview" v-if="hasPlayers()">
-            <overview-settings />
             <div class="other_player" v-if="player.players.length > 1">
                 <div v-for="(otherPlayer, index) in getPlayersInOrder()" :key="otherPlayer.id">
                     <other-player v-if="otherPlayer.id !== player.id" :player="otherPlayer" :playerIndex="index"/>
