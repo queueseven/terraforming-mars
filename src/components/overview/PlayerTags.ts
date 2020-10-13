@@ -29,9 +29,6 @@ export const PlayerTags = Vue.component("player-tags", {
         getVpCount: function (): number {
             return this.player.victoryPointsBreakdown.total;
         },
-        hideVpCount: function (): boolean {
-            return !this.player.showOtherPlayersVP && !this.isActivePlayer;
-        },
         getTagCount(tagName: Tags | SpecialTags): number {
             if (tagName === SpecialTags.COLONY_COUNT && this.showColonyCount())
                 return this.player.coloniesCount || 0;
@@ -55,7 +52,7 @@ export const PlayerTags = Vue.component("player-tags", {
     template: `
         <div class="player-tags">
             <div class="player-tags-main">
-                <tag-count :tag="'vp'" :count="getVpCount()" :size="'big'" :type="'main'" :hideCount="hideVpCount()" />
+                <tag-count :tag="'vp'" :count="getVpCount()" :size="'big'" :type="'main'" />
                 <tag-count :tag="'tr'" :count="getTR()" :size="'big'" :type="'main'"/>
                 <tag-count :tag="'cards'" :count="getCardCount()" :size="'big'" :type="'main'"/>
             </div>

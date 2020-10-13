@@ -72,7 +72,6 @@ export interface GameOptions {
   // Configuration
   undoOption: boolean;
   fastModeOption: boolean;
-  showOtherPlayersVP: boolean;
   
   // Extensions
   corporateEra: boolean;
@@ -163,7 +162,6 @@ export class Game implements ILoadable<SerializedGame, Game> {
 
           undoOption: false,
           fastModeOption: false,
-          showOtherPlayersVP: false,
 
           corporateEra: true,
           venusNextExtension: false,

@@ -45,7 +45,6 @@ export interface PlayerModel {
     venusScaleLevel: number;
     victoryPointsBreakdown: VictoryPointsBreakdown;
     tags: Array<ITagCount>;
-    showOtherPlayersVP: boolean;
     actionsThisGeneration: Array<string>;
     fleetSize: number;
     tradesThisTurn: number;

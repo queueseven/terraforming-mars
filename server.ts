@@ -424,7 +424,6 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
 
                 undoOption: gameReq.undoOption,
                 fastModeOption: gameReq.fastModeOption,
-                showOtherPlayersVP: gameReq.showOtherPlayersVP,
 
                 corporateEra: gameReq.corporateEra,
                 venusNextExtension: gameReq.venusNext,
@@ -584,7 +583,6 @@ function getPlayer(player: Player, game: Game): string {
         boardName: game.gameOptions.boardName,
         colonies: getColonies(game),
         tags: player.getAllTags(),
-        showOtherPlayersVP: game.gameOptions.showOtherPlayersVP,
         actionsThisGeneration: Array.from(player.getActionsThisGeneration()),
         fleetSize: player.fleetSize,
         tradesThisTurn: player.tradesThisTurn,
@@ -774,7 +772,6 @@ function getPlayers(players: Array<Player>, game: Game): Array<PlayerModel> {
             boardName: game.gameOptions.boardName,
             colonies: getColonies(game),
             tags: player.getAllTags(),
-            showOtherPlayersVP: game.gameOptions.showOtherPlayersVP,
             actionsThisGeneration: Array.from(
                 player.getActionsThisGeneration()
             ),

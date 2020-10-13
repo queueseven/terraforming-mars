@@ -34,7 +34,6 @@ export const setCustomGameOptions = function(options: object = {}): GameOptions 
         coloniesExtension: false,
         turmoilExtension: true,
         boardName: BoardName.ORIGINAL,
-        showOtherPlayersVP: false,
         customCorporationsList: [],
         solarPhaseOption: false,
         shuffleMapOption: false,

@@ -63,7 +63,6 @@ export interface SerializedGame {
     monsInsuranceOwner: PlayerId | undefined;
     someoneHasRemovedOtherPlayersPlants: boolean;
 
-    showOtherPlayersVP: boolean;
     customCorporationsList: boolean;
     corporationList: Array<CardName>;
 }
