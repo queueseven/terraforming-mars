@@ -41,7 +41,6 @@ interface CreateGameModel {
     undoOption: boolean;
     fastModeOption: boolean;
     removeNegativeGlobalEventsOption: boolean;
-    includeVenusMA: boolean;
     startingCorporations: number;
     soloTR: boolean;
     clonedGameData: IGameData | undefined;
@@ -104,7 +103,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
             undoOption: false,
             fastModeOption: false,
             removeNegativeGlobalEventsOption: false,
-            includeVenusMA: true,
             startingCorporations: 2,
             soloTR: false,
             clonedGameData: undefined,
@@ -249,7 +247,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
             const undoOption = component.undoOption;
             const fastModeOption = component.fastModeOption;
             const removeNegativeGlobalEventsOption = this.removeNegativeGlobalEventsOption;
-            const includeVenusMA = component.includeVenusMA;
             const startingCorporations = component.startingCorporations;
             const soloTR = component.soloTR;
             let clonedGamedId: undefined | string = undefined;
@@ -300,7 +297,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
                 undoOption,
                 fastModeOption,
                 removeNegativeGlobalEventsOption,
-                includeVenusMA,
                 startingCorporations,
                 soloTR,
                 clonedGamedId,
@@ -533,13 +529,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
                                 <span v-i18n>Initial Draft</span>&nbsp;<a href="https://github.com/bafolts/terraforming-mars/wiki/Variants#initial-draft" class="tooltip" target="_blank">&#9432;</a>
                             </label>
 
-                            <template v-if="venusNext">
-                                <input type="checkbox" v-model="includeVenusMA" id="venusMA-checkbox">
-                                <label for="venusMA-checkbox">
-                                    <span v-i18n>Venus Milestone/Award</span>
-                                </label>
-                            </template>
-                            
                             <input type="checkbox" v-model="fastModeOption" id="fastMode-checkbox">
                             <label for="fastMode-checkbox">
                                 <span v-i18n>Fast mode</span>&nbsp;<a href="https://github.com/bafolts/terraforming-mars/wiki/Variants#fast-mode" class="tooltip" target="_blank">&#9432;</a>

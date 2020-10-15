@@ -83,7 +83,6 @@ export interface GameOptions {
   communityCardsOption: boolean;
   solarPhaseOption: boolean;
   removeNegativeGlobalEventsOption: boolean;
-  includeVenusMA: boolean;
   
   // Variants
   draftVariant: boolean;
@@ -172,7 +171,6 @@ export class Game implements ILoadable<SerializedGame, Game> {
           communityCardsOption: false,
           solarPhaseOption: false,
           removeNegativeGlobalEventsOption: false,
-          includeVenusMA: true,
 
           draftVariant: false,
           initialDraftVariant: false,
@@ -186,7 +184,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
         } as GameOptions
       }
       this.gameOptions = gameOptions;
-      this.board = this.boardConstructor(gameOptions.boardName, gameOptions.randomMA, gameOptions.venusNextExtension && gameOptions.includeVenusMA);
+      this.board = this.boardConstructor(gameOptions.boardName, gameOptions.randomMA, gameOptions.venusNextExtension);
 
       this.activePlayer = first.id;
 
@@ -223,7 +221,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
 
       // Add Venus Next corporations cards, board colonies and milestone / award
       if (gameOptions.venusNextExtension) {
-        this.setVenusElements(gameOptions.randomMA, gameOptions.includeVenusMA);
+        this.setVenusElements(gameOptions.randomMA);
       }
 
       // Add colonies stuff
@@ -407,14 +405,14 @@ export class Game implements ILoadable<SerializedGame, Game> {
     }
 
     // Add Venus Next board colonies and milestone / award
-    public setVenusElements(randomMA: boolean, includeVenusMA: boolean) {
-      if (randomMA && includeVenusMA) {
+    public setVenusElements(randomMA: boolean) {
+      if (randomMA) {
         this.milestones = []
         this.awards = []
         this.setRandomMilestonesAndAwards(true, 6);
       } else {
-        if (includeVenusMA) this.milestones.push(...VENUS_MILESTONES);
-        if (includeVenusMA) this.awards.push(...VENUS_AWARDS);
+        this.milestones.push(...VENUS_MILESTONES);
+        this.awards.push(...VENUS_AWARDS);
       }
 
       this.addVenusBoardSpaces();

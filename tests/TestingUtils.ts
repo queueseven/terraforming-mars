@@ -41,7 +41,6 @@ export const setCustomGameOptions = function(options: object = {}): GameOptions 
         communityCardsOption: false,
         undoOption: false,
         startingCorporations: 2,
-        includeVenusMA: true,
         soloTR: false,
         clonedGamedId: undefined,
         cardsBlackList: []

@@ -435,7 +435,6 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
                 solarPhaseOption: gameReq.solarPhaseOption,
                 removeNegativeGlobalEventsOption:
                     gameReq.removeNegativeGlobalEventsOption,
-                includeVenusMA: gameReq.includeVenusMA,
                 
                 draftVariant: gameReq.draftVariant,
                 initialDraftVariant: gameReq.initialDraft,
