@@ -960,7 +960,7 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
 
     public worldGovernmentTerraforming(game: Game): void {
       const action: OrOptions = new OrOptions();
-      action.title = "Select action for World Government Terraforming";
+      action.title = "Select action for Solar Phase";
       action.buttonLabel = "Confirm";
       if (game.getTemperature() < constants.MAX_TEMPERATURE) {
         action.options.push(
