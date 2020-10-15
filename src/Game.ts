@@ -82,7 +82,6 @@ export interface GameOptions {
   promoCardsOption: boolean;
   communityCardsOption: boolean;
   solarPhaseOption: boolean;
-  removeNegativeGlobalEventsOption: boolean;
   
   // Variants
   draftVariant: boolean;
@@ -170,7 +169,6 @@ export class Game implements ILoadable<SerializedGame, Game> {
           promoCardsOption: false,
           communityCardsOption: false,
           solarPhaseOption: false,
-          removeNegativeGlobalEventsOption: false,
 
           draftVariant: false,
           initialDraftVariant: false,

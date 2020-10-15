@@ -40,7 +40,6 @@ interface CreateGameModel {
     communityCardsOption: boolean;
     undoOption: boolean;
     fastModeOption: boolean;
-    removeNegativeGlobalEventsOption: boolean;
     startingCorporations: number;
     soloTR: boolean;
     clonedGameData: IGameData | undefined;
@@ -102,7 +101,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
             communityCardsOption: false,
             undoOption: false,
             fastModeOption: false,
-            removeNegativeGlobalEventsOption: false,
             startingCorporations: 2,
             soloTR: false,
             clonedGameData: undefined,
@@ -246,7 +244,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
             const communityCardsOption = component.communityCardsOption;
             const undoOption = component.undoOption;
             const fastModeOption = component.fastModeOption;
-            const removeNegativeGlobalEventsOption = this.removeNegativeGlobalEventsOption;
             const startingCorporations = component.startingCorporations;
             const soloTR = component.soloTR;
             let clonedGamedId: undefined | string = undefined;
@@ -296,7 +293,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
                 communityCardsOption,
                 undoOption,
                 fastModeOption,
-                removeNegativeGlobalEventsOption,
                 startingCorporations,
                 soloTR,
                 clonedGamedId,
@@ -503,13 +499,6 @@ export const CreateGameForm = Vue.component("create-game-form", {
                                 <input type="checkbox" v-model="showColoniesList" id="customColonies-checkbox">
                                 <label for="customColonies-checkbox">
                                     <span v-i18n>Custom Colonies list</span>
-                                </label>
-                            </template>
-                            
-                            <template v-if="turmoil">
-                                <input type="checkbox" v-model="removeNegativeGlobalEventsOption" id="removeNegativeEvent-checkbox">
-                                <label for="removeNegativeEvent-checkbox">
-                                    <span v-i18n>Remove negative Global Events</span>&nbsp;<a href="https://github.com/bafolts/terraforming-mars/wiki/Variants#remove-negative-global-events" class="tooltip" target="_blank">&#9432;</a>
                                 </label>
                             </template>
 

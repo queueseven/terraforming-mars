@@ -126,15 +126,13 @@ export class GlobalEventDealer {
 
     public initGlobalEvents(game: Game) {
         var events = [...POSITIVE_GLOBAL_EVENTS];
+        events.push(...NEGATIVE_GLOBAL_EVENTS);
 
-        if (!game.gameOptions.removeNegativeGlobalEventsOption) {
-            events.push(...NEGATIVE_GLOBAL_EVENTS);
-            if (game.gameOptions.coloniesExtension) events.push(...COLONY_ONLY_NEGATIVE_GLOBAL_EVENTS);
+        if (game.gameOptions.coloniesExtension) events.push(...COLONY_ONLY_NEGATIVE_GLOBAL_EVENTS);
 
-            if (game.gameOptions.venusNextExtension && game.gameOptions.coloniesExtension) {
-                events.push(...VENUS_COLONY_NEGATIVE_GLOBAL_EVENTS)
-            };
-        }
+        if (game.gameOptions.venusNextExtension && game.gameOptions.coloniesExtension) {
+            events.push(...VENUS_COLONY_NEGATIVE_GLOBAL_EVENTS)
+        };
 
         if (game.gameOptions.venusNextExtension) events.push(...VENUS_POSITIVE_GLOBAL_EVENTS);
 

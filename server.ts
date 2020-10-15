@@ -433,8 +433,6 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
                 promoCardsOption: gameReq.promoCardsOption,
                 communityCardsOption: gameReq.communityCardsOption,
                 solarPhaseOption: gameReq.solarPhaseOption,
-                removeNegativeGlobalEventsOption:
-                    gameReq.removeNegativeGlobalEventsOption,
                 
                 draftVariant: gameReq.draftVariant,
                 initialDraftVariant: gameReq.initialDraft,
