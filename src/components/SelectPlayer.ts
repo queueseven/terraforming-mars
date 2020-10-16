@@ -24,7 +24,7 @@ export const SelectPlayer = Vue.component("select-player", {
   <label v-for="player in playerinput.players" :key="player" class="form-radio form-inline">
     <input type="radio" v-model="selectedPlayer" :value="player" />
     <i class="form-icon"></i>
-    <select-player-row :player="players.find((otherPlayer) => otherPlayer.id === player)"></select-player-row>
+    <select-player-row :player="players.find((otherPlayer) => otherPlayer.color === player)"></select-player-row>
   </label>
   <Button v-if="showsave === true" size="big" :onClick="saveData" :title="playerinput.buttonLabel" />
 </div>`

@@ -57,7 +57,7 @@ export const PlayerStatus = Vue.component("player-status", {
             const classes = [];
             const baseClass = "player-name";
             classes.push(baseClass);
-            if (this.player.id === this.activePlayer.id) {
+            if (this.player.color === this.activePlayer.color) {
                 classes.push(`${baseClass}--inactive`);
             }
             return classes.join(" ");

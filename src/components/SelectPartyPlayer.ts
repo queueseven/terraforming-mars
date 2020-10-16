@@ -25,7 +25,7 @@ export const SelectPartyPlayer = Vue.component("select-party-player", {
     <input type="radio" v-model="selectedPlayer" :value="player" />
     <i class="form-icon"></i>
     <span v-if="player === 'NEUTRAL'" >Neutral</span>
-    <select-player-row v-else :player="players.find((otherPlayer) => otherPlayer.id === player)"></select-player-row>
+    <select-player-row v-else :player="players.find((otherPlayer) => otherPlayer.color === player)"></select-player-row>
   </label>
   <Button v-if="showsave === true" size="big" :onClick="saveData" :title="playerinput.buttonLabel" />
 </div>`

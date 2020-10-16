@@ -24,6 +24,7 @@ import { PlayerInput } from "./src/PlayerInput";
 import { PlayerInputModel } from "./src/models/PlayerInputModel";
 import { PlayerInputTypes } from "./src/PlayerInputTypes";
 import { PlayerModel } from "./src/models/PlayerModel";
+import { PublicPlayerModel } from "./src/models/PublicPlayerModel";
 import { SelectAmount } from "./src/inputs/SelectAmount";
 import { SelectCard } from "./src/inputs/SelectCard";
 import { SelectHowToPay } from "./src/inputs/SelectHowToPay";
@@ -418,7 +419,7 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
                 gameReq.board = boards[Math.floor(Math.random() * boards.length)];
             }
 
-            const gameOptions = {
+            const gameOptions: GameOptions = {
                 boardName: gameReq.board,
                 clonedGamedId: gameReq.clonedGamedId,
 
@@ -447,7 +448,7 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
                 customCorporationsList: gameReq.customCorporationsList,
                 cardsBlackList: gameReq.cardsBlackList,
                 customColoniesList: gameReq.customColoniesList,
-            } as GameOptions;
+            };
 
             const game = new Game(gameId, players, firstPlayer, gameOptions);
             gameLoader.addGame(game);
@@ -534,7 +535,7 @@ function getCorporationCard(player: Player): CardModel | undefined {
 function getPlayer(player: Player, game: Game): string {
     const turmoil = getTurmoil(game);
 
-    const output = {
+    const output: PlayerModel = {
         cardsInHand: getCards(player, player.cardsInHand, game, false),
         draftedCards: getCards(player, player.draftedCards, game, false),
         milestones: getMilestones(game),
@@ -547,7 +548,6 @@ function getPlayer(player: Player, game: Game): string {
         generation: game.getGeneration(),
         heat: player.heat,
         heatProduction: player.getProduction(Resources.HEAT),
-        id: player.id,
         megaCredits: player.megaCredits,
         megaCreditProduction: player.getProduction(Resources.MEGACREDITS),
         name: player.name,
@@ -557,6 +557,7 @@ function getPlayer(player: Player, game: Game): string {
         plants: player.plants,
         plantProduction: player.getProduction(Resources.PLANTS),
         playedCards: getCards(player, player.playedCards, game),
+        id: player.id,
         cardsInHandNbr: player.cardsInHand.length,
         citiesCount: player.getCitiesCount(game),
         coloniesCount: player.getColoniesCount(game),
@@ -578,7 +579,6 @@ function getPlayer(player: Player, game: Game): string {
         isSoloModeWin: game.isSoloModeWin(),
         gameAge: game.gameAge,
         isActive: player.id === game.activePlayer,
-        corporateEra: game.gameOptions.corporateEra,
         venusNextExtension: game.gameOptions.venusNextExtension,
         venusScaleLevel: game.getVenusScaleLevel(),
         boardName: game.gameOptions.boardName,
@@ -596,11 +596,10 @@ function getPlayer(player: Player, game: Game): string {
         initialDraft: game.gameOptions.initialDraftVariant,
         needsToDraft: player.needsToDraft,
         deckSize: game.dealer.getDeckSize(),
-        randomMA: game.gameOptions.randomMA,
         actionsTakenThisRound: player.actionsTakenThisRound,
         passedPlayers: game.getPassedPlayers(),
         preludeExtension: game.gameOptions.preludeExtension,
-    } as PlayerModel;
+    };
     return JSON.stringify(output);
 }
 
@@ -709,7 +708,7 @@ function getWaitingFor(
             result.players = (waitingFor as SelectDelegate).players.map(
                 (player) => {
                     if (player === "NEUTRAL") {
-                        return "NEUTRAL";
+                        return Color.NEUTRAL;
                     } else {
                         return player.color;
                     }
@@ -736,10 +735,10 @@ function getCards(
     }));
 }
 
-function getPlayers(players: Array<Player>, game: Game): Array<PlayerModel> {
+function getPlayers(players: Array<Player>, game: Game): Array<PublicPlayerModel> {
     const turmoil = getTurmoil(game);
 
-    return players.map((player) => {
+    return players.map((player): PublicPlayerModel => {
         return {
             color: player.color,
             corporationCard: getCorporationCard(player),
@@ -747,7 +746,7 @@ function getPlayers(players: Array<Player>, game: Game): Array<PlayerModel> {
             energyProduction: player.getProduction(Resources.ENERGY),
             heat: player.heat,
             heatProduction: player.getProduction(Resources.HEAT),
-            id: player.color,
+            id: game.phase === Phase.END ? player.id : undefined,
             megaCredits: player.megaCredits,
             megaCreditProduction: player.getProduction(Resources.MEGACREDITS),
             name: player.name,
@@ -771,8 +770,6 @@ function getPlayers(players: Array<Player>, game: Game): Array<PlayerModel> {
             isActive: player.id === game.activePlayer,
             venusNextExtension: game.gameOptions.venusNextExtension,
             venusScaleLevel: game.getVenusScaleLevel(),
-            boardName: game.gameOptions.boardName,
-            colonies: getColonies(game),
             tags: player.getAllTags(),
             showOtherPlayersVP: game.gameOptions.showOtherPlayersVP,
             actionsThisGeneration: Array.from(
@@ -788,7 +785,7 @@ function getPlayers(players: Array<Player>, game: Game): Array<PlayerModel> {
             deckSize: game.dealer.getDeckSize(),
             actionsTakenThisRound: player.actionsTakenThisRound,
             preludeExtension: game.gameOptions.preludeExtension,
-        } as PlayerModel;
+        };
     });
 }
 

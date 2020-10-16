@@ -1,13 +1,16 @@
 import Vue from "vue";
-import { PlayerModel } from "../models/PlayerModel";
 import { Board } from "./Board";
-import { LogPanel } from "./LogPanel";
 import { Button } from "../components/common/Button";
+import { LogPanel } from "./LogPanel";
+import { PlayerModel } from "../models/PlayerModel";
+import { PublicPlayerModel } from "../models/PublicPlayerModel";
 
 export const GameEnd = Vue.component("game-end", {
-    props: ["player", "game"],
-    data: function () {
-        return {}
+    props: {
+        player: {
+            required: true,
+            type: Object as () => PlayerModel
+        }
     },
     components: {
         "board": Board,
@@ -21,8 +24,8 @@ export const GameEnd = Vue.component("game-end", {
         getEndGamePlayerColorClass: function (player: PlayerModel): string {
             return "player_bg_color_" + player.color;
         },
-        getSortedPlayers: function () {
-            this.player.players.sort(function (a:PlayerModel, b:PlayerModel){
+        getSortedPlayers: function (): Array<PublicPlayerModel> {
+            this.player.players.sort(function (a: PublicPlayerModel, b: PublicPlayerModel){
                 if (a.victoryPointsBreakdown.total < b.victoryPointsBreakdown.total) return -1;
                 if (a.victoryPointsBreakdown.total > b.victoryPointsBreakdown.total) return 1;
                 if (a.megaCredits < b.megaCredits) return -1;
@@ -30,7 +33,7 @@ export const GameEnd = Vue.component("game-end", {
                 return 0;
             });
             return this.player.players.reverse();
-        } 
+        }
     },
     template: `
         <div id="game-end" class="game_end_cont">
@@ -94,7 +97,7 @@ export const GameEnd = Vue.component("game-end", {
                         </thead>
                         <tbody>
                             <tr v-for="p in getSortedPlayers()">
-                                <td><log-player :class="getEndGamePlayerColorClass(p)">{{ p.name }}</log-player></td>
+                                <td><a :href="'/player?id='+p.id+'&noredirect'" :style="getPlayerColorStyle(p)">{{ p.name }}</a></td>
                                 <td v-i18n>{{ p.corporationCard.name }}</td>
                                 <td>{{ p.victoryPointsBreakdown.terraformRating }}</td>
                                 <td>{{ p.victoryPointsBreakdown.milestones }}</td>

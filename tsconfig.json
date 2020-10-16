@@ -13,7 +13,7 @@
         "skipLibCheck": true,
         "sourceMap": true,
         "target": "es5",
-        "types": ["node", "mocha", "chai"],
+        "types": ["node"],
         "moduleResolution": "node",
         "resolveJsonModule": true
     },

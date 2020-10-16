@@ -11,6 +11,7 @@ import { PlayerModel } from "../models/PlayerModel";
 import { Colony } from "./Colony";
 import { LogPanel } from "./LogPanel";
 import { PlayerMixin } from "./PlayerMixin";
+import { PublicPlayerModel } from "../models/PublicPlayerModel";
 import { Turmoil } from "./Turmoil";
 import { playerColorClass } from "../utils/utils";
 import { DynamicTitle } from "./common/DynamicTitle";
@@ -53,7 +54,7 @@ export const PlayerHome = Vue.component("player-home", {
             }
             return classes.join(" ");
         },
-        getFleetsCountRange: function (player: PlayerModel): Array<number> {
+        getFleetsCountRange: function (player: PublicPlayerModel): Array<number> {
             const fleetsRange: Array<number> = [];
             for (let i = 0; i < player.fleetSize - player.tradesThisTurn; i++) {
                 fleetsRange.push(i);

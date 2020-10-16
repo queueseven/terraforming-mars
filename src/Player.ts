@@ -54,6 +54,7 @@ import { ColonyModel } from "./models/ColonyModel";
 import { ALL_CORPORATION_DECKS } from "./cards/AllCards";
 import { Decks } from "./Deck";
 
+export type NeutralPlayer = "NEUTRAL";
 export type PlayerId = string;
 
 export class Player implements ILoadable<SerializedPlayer, Player>{
@@ -821,9 +822,7 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         if (input[0].length !== 1) {
           throw new Error("Invalid players array provided");
         }
-        const foundPlayer = pi.players.find(
-            (player) => player.color === input[0][0] || player.id === input[0][0]
-        );
+        const foundPlayer = pi.players.find(player => player.color === input[0][0]);
         if (foundPlayer === undefined) {
           throw new Error("Player not available");
         }
@@ -835,16 +834,11 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         if (input[0].length !== 1) {
           throw new Error("Invalid players array provided");
         }
-        let foundPlayer: Player | "NEUTRAL" | undefined = undefined;
-        if (input[0][0] === "NEUTRAL") {
+        let foundPlayer: Player | NeutralPlayer | undefined;
+        if (input[0][0] === Color.NEUTRAL) {
           foundPlayer = "NEUTRAL";
-        }
-        else {
-          pi.players.forEach(player => {
-            if (player instanceof Player && (player.id === input[0][0] || player.color === input[0][0])) {
-              foundPlayer = player;
-            }
-          });
+        } else {
+          foundPlayer = pi.players.find(player => player !== "NEUTRAL" && player.color === input[0][0]);
         }
         if (foundPlayer === undefined) {
           throw new Error("Player not available");
