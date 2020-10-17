@@ -530,7 +530,7 @@ export const CreateGameForm = Vue.component("create-game-form", {
                         </div>
 
                         <div class="create-game-action">
-                            <Button title="Create game" size="big" :onClick="createGame"/>
+                            <Button title="Create game" size="big" :onClick="createGame" class="create-game-btn"/>
                         </div>  
                     </div>
                 </div>
