@@ -59,6 +59,7 @@ import { Tags } from "./cards/Tags";
 import { TileType } from "./TileType";
 import { Turmoil } from "./turmoil/Turmoil";
 import { getRandomMilestonesAndAwards } from "./MilestoneAwardSelector";
+import { AmazonisBoard } from "./AmazonisBoard";
 
 export interface Score {
   corporation: String;
@@ -385,6 +386,9 @@ export class Game implements ILoadable<SerializedGame, Game> {
         }
 
         return new HellasBoard(this.gameOptions.shuffleMapOption, this.seed);
+      } else if (boardName === BoardName.AMAZONIS) {
+        this.setRandomMilestonesAndAwards(hasVenus, requiredQty);
+        return new AmazonisBoard(this.gameOptions.shuffleMapOption, this.seed);
       } else {
         if (randomMA) {
           this.setRandomMilestonesAndAwards(hasVenus, requiredQty);
@@ -1427,6 +1431,24 @@ export class Game implements ILoadable<SerializedGame, Game> {
             player.titanium++;
           } else if (spaceBonus === SpaceBonus.HEAT) {
             player.heat++;
+          } else if (spaceBonus === SpaceBonus.ANIMAL) {
+            const animalCards = player.getResourceCards(ResourceType.ANIMAL);
+
+            if (animalCards.length === 1) {
+                player.addResourceTo(animalCards[0], 1);
+                LogHelper.logAddResource(this, player, animalCards[0]);
+            } else if (animalCards.length > 1) {
+                this.addResourceInterrupt(player, ResourceType.ANIMAL, 1, undefined);
+            }
+          } else if (spaceBonus === SpaceBonus.MICROBE) {
+            const microbeCards = player.getResourceCards(ResourceType.MICROBE);
+
+            if (microbeCards.length === 1) {
+                player.addResourceTo(microbeCards[0], 1);
+                LogHelper.logAddResource(this, player, microbeCards[0]);
+            } else if (microbeCards.length > 1) {
+                this.addResourceInterrupt(player, ResourceType.MICROBE, 1, undefined);
+            }
           }
         });
 
@@ -1708,6 +1730,8 @@ export class Game implements ILoadable<SerializedGame, Game> {
         this.board = new ElysiumBoard(this.gameOptions.shuffleMapOption, this.seed);
       } else if (this.gameOptions.boardName === BoardName.HELLAS) {
         this.board = new HellasBoard(this.gameOptions.shuffleMapOption, this.seed);
+      } else if (this.gameOptions.boardName === BoardName.AMAZONIS) {
+        this.board = new AmazonisBoard(this.gameOptions.shuffleMapOption, this.seed);
       } else {
         this.board = new OriginalBoard(this.gameOptions.shuffleMapOption, this.seed);
       }

@@ -140,7 +140,7 @@ export abstract class Board {
 
     public getAvailableSpacesOnLand(player: Player): Array<ISpace> {
         const landSpaces = this.getSpaces(SpaceType.LAND, player).filter(
-            (space) => space.tile === undefined && (space.player === undefined || space.player === player)
+            (space) => space.tile === undefined && (space.player === undefined || space.player === player) && !space.bonus.includes(SpaceBonus.RESTRICTED)
         );
 
         return landSpaces;

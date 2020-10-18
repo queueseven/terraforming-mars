@@ -22,9 +22,14 @@ export const Bonus = Vue.component("bonus", {
                 ret += "card";
             } else if (bonus == SpaceBonus.HEAT) {
                 ret += "heat";
-             }else if (bonus == SpaceBonus.OCEAN) {
+             } else if (bonus == SpaceBonus.OCEAN) {
                 ret += "bonusocean";
+            } else if (bonus == SpaceBonus.ANIMAL) {
+                ret += "animal";
+            } else if (bonus == SpaceBonus.MICROBE) {
+                ret += "microbe";
             }
+            
             ret += " board-space-bonus-pos--" + idx.toString();
             return ret
         }
